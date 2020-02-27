@@ -5,16 +5,16 @@ namespace Liments.DAL.Models
 {
     public class Comment
     {
-        [BsonElement("Author")]
+        [BsonElement("author")]
         public string Author { get; set; }
 
-        [BsonElement("Content")]
+        [BsonElement("content")]
         public string Content { get; set; }
 
-        [BsonElement("Like")]
+        [BsonElement("like")]
         public int Like { get; set; }
 
-        [BsonElement("PostedAt")]
+        [BsonElement("posted_at")]
         public DateTime PostedAt { get; set; }
     }
 }

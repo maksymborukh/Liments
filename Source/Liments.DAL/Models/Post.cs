@@ -11,31 +11,31 @@ namespace Liments.DAL.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        [BsonElement("Author")]
+        [BsonElement("author")]
         public string Author { get; set; }
 
-        [BsonElement("Title")]
+        [BsonElement("title")]
         public string Title { get; set; }
 
-        [BsonElement("Content")]
+        [BsonElement("content")]
         public string Content { get; set; }
 
-        [BsonElement("Tags")]
+        [BsonElement("tags")]
         public List<string> Tags { get; set; }
 
-        [BsonElement("Comments")]
+        [BsonElement("comments")]
         public List<Comment> Comments { get; set; }
 
-        [BsonElement("Like")]
+        [BsonElement("like")]
         public int Like { get; set; }
 
-        [BsonElement("View")]
+        [BsonElement("view")]
         public int View { get; set; }
 
-        [BsonElement("PostedAt")]
+        [BsonElement("posted_at")]
         public DateTime PostedAt { get; set; }
 
-        [BsonElement("IsPosted")]
+        [BsonElement("is_posted")]
         public bool IsPosted { get; set; }
 
     }

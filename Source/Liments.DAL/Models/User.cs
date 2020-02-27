@@ -10,31 +10,31 @@ namespace Liments.DAL.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        [BsonElement("FirstName")]
+        [BsonElement("first_name")]
         public string FirstName { get; set; }
 
-        [BsonElement("LastName")]
+        [BsonElement("last_name")]
         public string LastName { get; set; }
 
-        [BsonElement("Email")]
+        [BsonElement("email")]
         public string Email { get; set; }
 
-        [BsonElement("UserName")]
+        [BsonElement("user_name")]
         public string UserName { get; set; }
 
-        [BsonElement("AccSubs")]
+        [BsonElement("acc_subs")]
         public List<string> AccSubs { get; set; }
 
-        [BsonElement("PndSubs")]
+        [BsonElement("pnd_subs")]
         public List<string> PndSubs { get; set; }
 
-        [BsonElement("AccFol")]
+        [BsonElement("acc_fol")]
         public List<string> AccFol { get; set; }
 
-        [BsonElement("PndFol")]
+        [BsonElement("pnd_fol")]
         public List<string> PndFol { get; set; }
 
-        [BsonElement("Password")]
+        [BsonElement("password")]
         public string Password { get; set; }
     }
 }
