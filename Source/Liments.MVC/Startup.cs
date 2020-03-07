@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace Liments.MVC
 {
@@ -24,6 +25,14 @@ namespace Liments.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //services.Configure<DbSettings>(
+            //    Configuration.GetSection(nameof(DbSettings)));
+
+            //services.AddSingleton<IDbSettings>(sp => 
+            //    sp.GetRequiredService<IOptions<DbSettings>>().Value);
+
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

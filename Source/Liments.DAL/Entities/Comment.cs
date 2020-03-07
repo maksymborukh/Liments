@@ -1,7 +1,8 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections.Generic;
 
-namespace Liments.DAL.Models
+namespace Liments.DAL.Entities
 {
     public class Comment
     {
@@ -12,7 +13,7 @@ namespace Liments.DAL.Models
         public string Content { get; set; }
 
         [BsonElement("like")]
-        public int Like { get; set; }
+        public List<Like> Likes { get; set; }
 
         [BsonElement("posted_at")]
         public DateTime PostedAt { get; set; }
