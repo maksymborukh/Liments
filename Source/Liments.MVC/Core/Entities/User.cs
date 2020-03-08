@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
 
-namespace Liments.DAL.Entities
+namespace Liments.MVC.Core.Entities
 {
     public class User
     {

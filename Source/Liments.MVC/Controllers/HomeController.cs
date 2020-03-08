@@ -6,20 +6,28 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Liments.MVC.Models;
+using AutoMapper;
+using Liments.MVC.Interfaces;
+using Liments.MVC.Core.Entities;
 
 namespace Liments.MVC.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private IUserService _userService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUserService service)
         {
             _logger = logger;
+            _userService = service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            IEnumerable<User> users = await _userService.GetAllAsync();
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserViewModel>()).CreateMapper();
+            var phones = mapper.Map<IEnumerable<User>, List<UserViewModel>>(users);
             return View();
         }
 

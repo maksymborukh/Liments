@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Liments.MVC.Core.Database;
+using Liments.MVC.Interfaces;
+using Liments.MVC.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,11 +24,15 @@ namespace Liments.MVC
         {
             services.AddControllersWithViews();
 
-            //services.Configure<DbSettings>(
-            //    Configuration.GetSection(nameof(DbSettings)));
+            services.Configure<DbSettings>(
+                Configuration.GetSection(nameof(DbSettings)));
+            services.AddSingleton<IDbSettings>(sp =>
+                sp.GetRequiredService<IOptions<DbSettings>>().Value);
 
-            //services.AddSingleton<IDbSettings>(sp => 
-            //    sp.GetRequiredService<IOptions<DbSettings>>().Value);
+            services.AddTransient<ILimentsContext, LimentsContext>();
+
+            services.AddTransient<IPostService, PostService>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddControllers();
         }

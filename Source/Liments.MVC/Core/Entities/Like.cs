@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace Liments.DAL.Entities
+namespace Liments.MVC.Core.Entities
 {
     public class Like
     {

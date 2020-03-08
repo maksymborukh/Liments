@@ -1,7 +1,7 @@
-﻿using Liments.DAL.Entities;
+﻿using Liments.MVC.Core.Entities;
 using MongoDB.Driver;
 
-namespace Liments.DAL.Core
+namespace Liments.MVC.Core.Database
 {
     public class LimentsContext : ILimentsContext
     {
@@ -11,10 +11,12 @@ namespace Liments.DAL.Core
 
         public LimentsContext(IDbSettings dbSettings)
         {
-            var client = new MongoClient(dbSettings.ConnectionString);
+            var client = new MongoClient(dbSettings.connectionString);
 
             if (client != null)
-                _mongodb = client.GetDatabase(dbSettings.DatabaseName);
+            {
+                _mongodb = client.GetDatabase(dbSettings.databaseName);
+            }
         }
 
         public IMongoCollection<User> Users

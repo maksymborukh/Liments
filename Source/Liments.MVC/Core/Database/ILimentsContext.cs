@@ -1,7 +1,7 @@
-﻿using Liments.DAL.Entities;
+﻿using Liments.MVC.Core.Entities;
 using MongoDB.Driver;
 
-namespace Liments.DAL.Core
+namespace Liments.MVC.Core.Database
 {
     public interface ILimentsContext
     {
