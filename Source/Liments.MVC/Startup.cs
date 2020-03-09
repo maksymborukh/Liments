@@ -1,6 +1,9 @@
+using AutoMapper;
 using Liments.MVC.Core.Database;
+using Liments.MVC.Core.Mapper;
 using Liments.MVC.Interfaces;
 using Liments.MVC.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,10 +32,18 @@ namespace Liments.MVC
             services.AddSingleton<IDbSettings>(sp =>
                 sp.GetRequiredService<IOptions<DbSettings>>().Value);
 
+            services.AddSingleton<IMapper>(MapperConfig.CreateMapper());
+
             services.AddTransient<ILimentsContext, LimentsContext>();
 
             services.AddTransient<IPostService, PostService>();
             services.AddTransient<IUserService, UserService>();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => 
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
 
             services.AddControllers();
         }
@@ -55,6 +66,7 @@ namespace Liments.MVC
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Liments.MVC.Models
 {
@@ -11,7 +8,7 @@ namespace Liments.MVC.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string UserName { get; set; }
+        public string Login { get; set; }
         public List<string> AccSubs { get; set; }
         public List<string> PndSubs { get; set; }
         public List<string> AccFol { get; set; }

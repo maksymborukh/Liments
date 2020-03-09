@@ -19,8 +19,8 @@ namespace Liments.MVC.Core.Entities
         [BsonElement("email")]
         public string Email { get; set; }
 
-        [BsonElement("user_name")]
-        public string UserName { get; set; }
+        [BsonElement("login")]
+        public string Login { get; set; }
 
         [BsonElement("acc_subs")]
         public List<string> AccSubs { get; set; }

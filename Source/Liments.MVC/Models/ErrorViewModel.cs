@@ -1,5 +1,3 @@
-using System;
-
 namespace Liments.MVC.Models
 {
     public class ErrorViewModel

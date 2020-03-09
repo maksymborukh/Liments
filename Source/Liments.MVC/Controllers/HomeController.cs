@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Liments.MVC.Interfaces;
+using Liments.MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Liments.MVC.Models;
-using AutoMapper;
-using Liments.MVC.Interfaces;
-using Liments.MVC.Core.Entities;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Liments.MVC.Controllers
 {
@@ -23,19 +19,13 @@ namespace Liments.MVC.Controllers
             _userService = service;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            IEnumerable<User> users = await _userService.GetAllAsync();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserViewModel>()).CreateMapper();
-            var phones = mapper.Map<IEnumerable<User>, List<UserViewModel>>(users);
-            return View();
-        }
-
-        public IActionResult Privacy()
+        [Authorize]
+        public IActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
