@@ -51,11 +51,12 @@ namespace Liments.MVC.Services
             return false;
         }
 
-        public async Task<bool> IsUserExist(string email)
+        public async Task<bool> IsUserExist(string email, string login)
         {
-            var user = await GetByEmailAsync(email);
+            var user1 = await GetByEmailAsync(email);
+            var user2 = await GetByLoginAsync(login);
 
-            if (user == null)
+            if (user1 == null && user2 == null)
                 return false;
 
             return true;

@@ -55,7 +55,7 @@ namespace Liments.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool isUserExists = await _userService.IsUserExist(model.Email);
+                bool isUserExists = await _userService.IsUserExist(model.Email, model.Login);
                 if (!isUserExists)
                 {
 
@@ -66,7 +66,7 @@ namespace Liments.MVC.Controllers
                             FirstName = string.Empty,
                             LastName = string.Empty,
                             Email = model.Email,
-                            Login = string.Empty,
+                            Login = model.Login,
                             Password = model.Password,
                             AccSubs = new List<string>(),
                             AccFol = new List<string>(),
