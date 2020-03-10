@@ -3,7 +3,84 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h2>Index</h2>
-<h1>@User.Identity.Name</h1>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 mx-auto">
+                @for (int i = 0; i < 10; i++)
+                {
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="mr-2">
+                                        <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                                    </div>
+                                    <div class="ml-2">
+                                        <div class="h5 m-0">Name</div>
+                                        <div class="h7 text-muted">Miracles Lee Cross</div>
+                                    </div>
+                                </div>
+                                <!--
+                                <div>
+                                    <div class="dropdown">
+                                        <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(39px, 38px, 0px);">
+                                            <div class="h6 dropdown-header">Configuration</div>
+                                            <a class="dropdown-item" href="#">Save</a>
+                                            <a class="dropdown-item" href="#">Hide</a>
+                                            <a class="dropdown-item" href="#">Report</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                 -->
+                            </div>
 
-<a asp-action="Logout" asp-controller="Account">Logout</a>
+                        </div>
+                        <div class="card-body">
+                            
+                            <div class="form-row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
+                                    <img class="rounded" style="width:100%" src="https://picsum.photos/50/50" alt="">
+                                </div>
+                                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-6">
+                                    <a class="card-link" href="#">
+                                        <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adip.</h5>
+                                    </a>
+
+                                    <p class="card-text">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae nulla rem eos ipsa praesentium esse magnam nemo dolor
+                                        sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste voluptates.
+                                    </p>
+                                </div>
+                            </div>
+                                                     
+                            <div class="text-muted h7 mt-2">10 min ago</div>
+                        </div>
+                        <div class="card-footer">
+                            <div>
+                                <a href="#" class="card-link">Like</a>
+                                <a href="#" class="card-link">Comment</a>
+                                <a href="#" class="card-link">Share</a>
+                            </div>
+                            @if (true)
+                            {
+                                <div class="mt-2">
+                                    <a href="#" class="card-link">Liked by ...</a>
+                                </div>
+                            }
+                            @if (true)
+                            {
+                                <div class="mt-2">
+                                    <a href="#" class="card-link">View all ... comments</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
