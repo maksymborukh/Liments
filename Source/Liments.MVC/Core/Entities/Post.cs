@@ -29,7 +29,7 @@ namespace Liments.MVC.Core.Entities
         [BsonElement("posted_at")]
         public DateTime PostedAt { get; set; }
 
-        [BsonElement("is_posted")]
-        public bool IsPosted { get; set; }
+        [BsonElement("access")]
+        public Access Access { get; set; }
     }
 }
