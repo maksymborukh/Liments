@@ -20,9 +20,6 @@ namespace Liments.MVC.Core.Entities
         [BsonElement("content")]
         public string Content { get; set; }
 
-        [BsonElement("tags")]
-        public List<string> Tags { get; set; }
-
         [BsonElement("comments")]
         public List<Comment> Comments { get; set; }
 
@@ -34,6 +31,5 @@ namespace Liments.MVC.Core.Entities
 
         [BsonElement("is_posted")]
         public bool IsPosted { get; set; }
-
     }
 }
