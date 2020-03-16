@@ -1,11 +1,13 @@
 using AutoMapper;
 using Liments.MVC.Core.Database;
+using Liments.MVC.Core.Entities;
 using Liments.MVC.Core.Mapper;
 using Liments.MVC.Interfaces;
 using Liments.MVC.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
