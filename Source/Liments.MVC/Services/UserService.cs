@@ -35,15 +35,27 @@ namespace Liments.MVC.Services
             return result;
         }
 
-        public async Task<UserViewModel> GetByLoginAsync(string str)
+        public UserViewModel GetByEmail(string str)
         {
-            var result = _mapper.Map<UserViewModel>(await _context.Users.Find(u => u.Login == str).SingleOrDefaultAsync());
+            var result = _mapper.Map<UserViewModel>(_context.Users.Find(u => u.Email == str).SingleOrDefault());
             return result;
         }
 
-        public async Task<bool> CheckCredentials(string email, string pass)
+        public async Task<UserViewModel> GetByUserNameAsync(string str)
         {
-            UserViewModel user = await GetByEmailAsync(email);
+            var result = _mapper.Map<UserViewModel>(await _context.Users.Find(u => u.UserName == str).SingleOrDefaultAsync());
+            return result;
+        }
+
+        public UserViewModel GetByUserName(string str)
+        {
+            var result = _mapper.Map<UserViewModel>(_context.Users.Find(u => u.UserName == str).SingleOrDefault());
+            return result;
+        }
+
+        public async Task<bool> CheckCredentials(string name, string pass)
+        {
+            UserViewModel user = await GetByUserNameAsync(name);
 
             if (user != null && user.Password == GetHashCode(pass))
                 return true;
@@ -51,10 +63,10 @@ namespace Liments.MVC.Services
             return false;
         }
 
-        public async Task<bool> IsUserExist(string email, string login)
+        public async Task<bool> IsUserExist(string email, string name)
         {
             var user1 = await GetByEmailAsync(email);
-            var user2 = await GetByLoginAsync(login);
+            var user2 = await GetByUserNameAsync(name);
 
             if (user1 == null && user2 == null)
                 return false;
@@ -64,15 +76,15 @@ namespace Liments.MVC.Services
 
         public async Task CreateAsync(UserViewModel user)
         {
-            var mUser = _mapper.Map<User>(user);
-            mUser.Password = GetHashCode(mUser.Password);
-            await _context.Users.InsertOneAsync(mUser);
+            var nUser = _mapper.Map<User>(user);
+            nUser.Password = GetHashCode(nUser.Password);
+            await _context.Users.InsertOneAsync(nUser);
         }
 
         public async Task UpdateAsync(UserViewModel user)
         {
-            var mUser = _mapper.Map<User>(user);
-            await _context.Users.ReplaceOneAsync(u => u.Id == mUser.Id, mUser);
+            var nUser = _mapper.Map<User>(user);
+            await _context.Users.ReplaceOneAsync(u => u.Id == nUser.Id, nUser);
         }
 
         public async Task DeleteAsync(string id)

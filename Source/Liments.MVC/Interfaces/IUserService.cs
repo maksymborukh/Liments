@@ -8,9 +8,12 @@ namespace Liments.MVC.Interfaces
     {
         Task<IEnumerable<UserViewModel>> GetAllAsync();
         Task<UserViewModel> GetByEmailAsync(string email);
-        Task<UserViewModel> GetByLoginAsync(string login);
+        UserViewModel GetByEmail(string email);
+        Task<UserViewModel> GetByUserNameAsync(string name);
+        UserViewModel GetByUserName(string name);
+
         Task<bool> CheckCredentials(string login, string pass);
-        Task<bool> IsUserExist(string email, string login);
+        Task<bool> IsUserExist(string email, string name);
         Task CreateAsync(UserViewModel item);
         Task UpdateAsync(UserViewModel item);
         Task DeleteAsync(string id);
