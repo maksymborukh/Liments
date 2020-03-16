@@ -1,0 +1,18 @@
+﻿@using Liments.MVC.Models
+@model IEnumerable<PostViewModel>
+
+@{
+    ViewData["Title"] = "Posts";
+}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 mx-auto">
+                <div id="Posts">
+                    @{ await Html.RenderPartialAsync("_Posts", Model); }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
