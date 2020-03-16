@@ -8,7 +8,7 @@ namespace Liments.MVC.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Login { get; set; }
+        public string UserName { get; set; }
         public List<string> AccSubs { get; set; }
         public List<string> PndSubs { get; set; }
         public List<string> AccFol { get; set; }
