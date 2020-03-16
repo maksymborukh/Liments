@@ -30,15 +30,15 @@ namespace Liments.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool hasAccess = await _userService.CheckCredentials(model.Email, model.Password);
+                bool hasAccess = await _userService.CheckCredentials(model.UserName, model.Password);
 
                 if (hasAccess)
                 {
-                    await Authenticate(model.Email);
+                    await Authenticate(model.UserName);
 
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "Incorrect email or password");
+                ModelState.AddModelError("", "Incorrect username or password");
             }
             return View(model);
         }
@@ -55,7 +55,7 @@ namespace Liments.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool isUserExists = await _userService.IsUserExist(model.Email, model.Login);
+                bool isUserExists = await _userService.IsUserExist(model.Email, model.UserName);
                 if (!isUserExists)
                 {
 
@@ -66,7 +66,7 @@ namespace Liments.MVC.Controllers
                             FirstName = string.Empty,
                             LastName = string.Empty,
                             Email = model.Email,
-                            Login = model.Login,
+                            UserName = model.UserName,
                             Password = model.Password,
                             AccSubs = new List<string>(),
                             AccFol = new List<string>(),
@@ -76,12 +76,12 @@ namespace Liments.MVC.Controllers
                         await _userService.CreateAsync(user);
                     }
 
-                    await Authenticate(model.Email);
+                    await Authenticate(model.UserName);
 
                     return RedirectToAction("Index", "Home");
                 }
                 else
-                    ModelState.AddModelError("", "Incorrect email or password");
+                    ModelState.AddModelError("", "Incorrect user name or password");
             }
             return View(model);
         }
