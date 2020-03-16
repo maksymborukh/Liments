@@ -11,6 +11,10 @@
     <PackageReference Include="MongoDB.Driver" Version="2.10.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
 
 
 </Project>
