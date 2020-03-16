@@ -14,6 +14,7 @@ namespace Liments.MVC.Core.Mapper
                 cfg.CreateMap<UserViewModel, User>();
                 cfg.CreateMap<Post, PostViewModel>();
                 cfg.CreateMap<PostViewModel, Post>();
+                cfg.CreateMap<UserViewModel, Like>();
             }).CreateMapper();
         }
     }

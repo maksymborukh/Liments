@@ -4,7 +4,7 @@ namespace Liments.MVC.Core.Entities
 {
     public class Like
     {
-        [BsonElement("author")]
-        public string Author { get; set; }
+        [BsonElement("user_name")]
+        public string UserName { get; set; }
     }
 }
