@@ -30,5 +30,13 @@ namespace Liments.MVC.Controllers
             var posts = await _postService.GetAllPublicAsync();
             return PartialView("_Posts", posts);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddComment(string id, string content)
+        {
+            _postService.AddComment(id, content, User.Identity.Name);
+            var posts = await _postService.GetAllPublicAsync();
+            return PartialView("_Posts", posts);
+        }
     }
 }

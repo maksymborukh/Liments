@@ -1,5 +1,4 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
 using System.Collections.Generic;
 
 namespace Liments.MVC.Core.Entities
@@ -16,6 +15,6 @@ namespace Liments.MVC.Core.Entities
         public List<Like> Likes { get; set; }
 
         [BsonElement("posted_at")]
-        public DateTime PostedAt { get; set; }
+        public string PostedAt { get; set; }
     }
 }

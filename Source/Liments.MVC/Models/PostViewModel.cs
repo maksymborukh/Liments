@@ -1,5 +1,4 @@
 ﻿using Liments.MVC.Core.Entities;
-using System;
 using System.Collections.Generic;
 
 namespace Liments.MVC.Models
@@ -12,7 +11,7 @@ namespace Liments.MVC.Models
         public string Content { get; set; }
         public List<Comment> Comments { get; set; }
         public List<Like> Likes { get; set; }
-        public DateTime PostedAt { get; set; }
+        public string PostedAt { get; set; }
         public Access Access { get; set; }
     }
 }

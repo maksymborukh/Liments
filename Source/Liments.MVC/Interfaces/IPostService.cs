@@ -15,6 +15,6 @@ namespace Liments.MVC.Interfaces
         Task DeleteAsync(string id);
         void Like(string userName, string postId);
         bool IsLiked(string userName, string postId);
-
+        void AddComment(string postId, string content, string userName);
     }
 }

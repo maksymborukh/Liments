@@ -4,6 +4,7 @@ using Liments.MVC.Core.Entities;
 using Liments.MVC.Interfaces;
 using Liments.MVC.Models;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -68,6 +69,23 @@ namespace Liments.MVC.Services
             {
                 AddLike(userName, postId);
             }
+        }
+
+        public void AddComment(string postId, string content, string userName)
+        {
+            Comment comment = new Comment
+            {
+                Author = userName,
+                Content = content,
+                Likes = new List<Like>(),
+                PostedAt = DateTime.Now.ToString("dd MMM yy")
+            };
+
+            var filter = Builders<Post>.Filter.Eq(el => el.Id, postId);
+            var update = Builders<Post>.Update
+                    .Push<Comment>(el => el.Comments, comment);
+
+            _context.Posts.FindOneAndUpdate(filter, update);
         }
 
         public bool IsLiked(string userName, string postId)
