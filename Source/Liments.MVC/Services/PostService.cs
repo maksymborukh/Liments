@@ -3,6 +3,7 @@ using Liments.MVC.Core.Database;
 using Liments.MVC.Core.Entities;
 using Liments.MVC.Interfaces;
 using Liments.MVC.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,12 @@ namespace Liments.MVC.Services
         public async Task<IEnumerable<PostViewModel>> GetAllPublicAsync()
         {
             var result = _mapper.Map<IEnumerable<PostViewModel>>(await _context.Posts.Find(p => p.Access.Public == true).ToListAsync());
+            return result;
+        }
+
+        public async Task<IEnumerable<PostViewModel>> GetAllByProfileAsync(string userName)
+        {
+            var result = _mapper.Map<IEnumerable<PostViewModel>>(await _context.Posts.Find(p => p.Author == userName).ToListAsync());
             return result;
         }
 
@@ -113,6 +120,25 @@ namespace Liments.MVC.Services
                     .Pull<Like>(el => el.Likes, like);
 
              _context.Posts.FindOneAndUpdate(filter, update);
+        }
+
+        public void AddPost(string content, string title, string userName)
+        {
+            var user = _userService.GetByUserName(userName);
+            var post = new Post()
+            {
+                Author = userName,
+                Title = title,
+                Content = content,
+                Comments = new List<Comment>(),
+                Likes = new List<Like>(),
+                PostedAt = DateTime.Now.ToString("dd MMM yy"),
+                Access = new Access { Public = true, Friend = true, Private = false }
+            };
+
+            var builder = Builders<Post>.Filter;
+            post.Id = Convert.ToString(ObjectId.GenerateNewId());
+            _context.Posts.InsertOne(post);
         }
     }
 }
