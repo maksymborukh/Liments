@@ -22,17 +22,11 @@ namespace Liments.MVC.Core.Entities
         [BsonElement("user_name")]
         public string UserName { get; set; }
 
-        [BsonElement("acc_subs")]
-        public List<string> AccSubs { get; set; }
+        [BsonElement("subs")]
+        public List<string> Subs { get; set; }
 
-        [BsonElement("pnd_subs")]
-        public List<string> PndSubs { get; set; }
-
-        [BsonElement("acc_fol")]
-        public List<string> AccFol { get; set; }
-
-        [BsonElement("pnd_fol")]
-        public List<string> PndFol { get; set; }
+        [BsonElement("fol")]
+        public List<string> Fol { get; set; }
 
         [BsonElement("password")]
         public string Password { get; set; }

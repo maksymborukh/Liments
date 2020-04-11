@@ -1,7 +1,24 @@
-﻿
+﻿@using Liments.MVC.Models
+@model IEnumerable<PostViewModel>
+
 @{
     ViewData["Title"] = "Home Page";
 }
 
-
+<div class="container">
+    <div class="row">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 mx-auto">
+            @if (Model != null && Model.Any())
+            {
+                <div id="Posts">
+                    @{await Html.RenderPartialAsync("_Posts", Model); }
+                </div>
+             }
+             else 
+             { 
+                <h4>It looks like you don't follow anyone</h4>
+             }
+        </div>
+    </div>
+</div>
 

@@ -33,8 +33,22 @@ namespace Liments.MVC.Services
 
         public async Task<IEnumerable<PostViewModel>> GetAllPublicAsync()
         {
-            var result = _mapper.Map<IEnumerable<PostViewModel>>(await _context.Posts.Find(p => p.Access.Public == true).ToListAsync());
+            var result = _mapper.Map<IEnumerable<PostViewModel>>(await _context.Posts.AsQueryable<Post>().ToListAsync());
             return result;
+        }
+
+        public async Task<IEnumerable<PostViewModel>> GetAllFolPostAsync(string userName)
+        {
+            var userFol = _userService.GetByUserName(userName).Fol;
+
+            List<PostViewModel> results = new List<PostViewModel>();
+
+            foreach(string el in userFol)
+            {
+                results.AddRange(_mapper.Map<IEnumerable<PostViewModel>>(await _context.Posts.Find(p => p.Author == el).ToListAsync()));
+            }
+
+            return results;
         }
 
         public async Task<IEnumerable<PostViewModel>> GetAllByProfileAsync(string userName)
@@ -133,7 +147,6 @@ namespace Liments.MVC.Services
                 Comments = new List<Comment>(),
                 Likes = new List<Like>(),
                 PostedAt = DateTime.Now.ToString("dd MMM yy"),
-                Access = new Access { Public = true, Friend = true, Private = false }
             };
 
             var builder = Builders<Post>.Filter;

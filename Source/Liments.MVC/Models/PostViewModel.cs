@@ -12,6 +12,5 @@ namespace Liments.MVC.Models
         public List<Comment> Comments { get; set; }
         public List<Like> Likes { get; set; }
         public string PostedAt { get; set; }
-        public Access Access { get; set; }
     }
 }

@@ -27,8 +27,5 @@ namespace Liments.MVC.Core.Entities
 
         [BsonElement("posted_at")]
         public string PostedAt { get; set; }
-
-        [BsonElement("access")]
-        public Access Access { get; set; }
     }
 }

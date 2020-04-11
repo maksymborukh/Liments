@@ -11,11 +11,12 @@ namespace Liments.MVC.Interfaces
         UserViewModel GetByEmail(string email);
         Task<UserViewModel> GetByUserNameAsync(string name);
         UserViewModel GetByUserName(string name);
-
         Task<bool> CheckCredentials(string login, string pass);
         Task<bool> IsUserExist(string email, string name);
         Task CreateAsync(UserViewModel item);
         Task UpdateAsync(UserViewModel item);
         Task DeleteAsync(string id);
+        Task FollowAsync(string username, string FolUsername);
+        Task UnfollowAsync(string username, string FolUsername);
     }
 }

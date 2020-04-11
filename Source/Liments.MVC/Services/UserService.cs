@@ -104,5 +104,34 @@ namespace Liments.MVC.Services
 
             return output;
         }
+
+        public async Task FollowAsync(string userName, string FolUserName)
+        {
+            var filter = Builders<User>.Filter.Eq(el => el.UserName, userName);
+            var update = Builders<User>.Update
+                    .Push<string>(el => el.Fol, FolUserName);
+
+            await _context.Users.FindOneAndUpdateAsync(filter, update);
+
+            var filter2 = Builders<User>.Filter.Eq(el => el.UserName, FolUserName);
+            var update2 = Builders<User>.Update
+                    .Push<string>(el => el.Subs, userName);
+
+            await _context.Users.FindOneAndUpdateAsync(filter2, update2);
+        }
+        public async Task UnfollowAsync(string userName, string FolUserName)
+        {
+            var filter = Builders<User>.Filter.Eq(el => el.UserName, userName);
+            var update = Builders<User>.Update
+                    .Pull<string>(el => el.Fol, FolUserName);
+
+            await _context.Users.FindOneAndUpdateAsync(filter, update);
+
+            var filter2 = Builders<User>.Filter.Eq(el => el.UserName, FolUserName);
+            var update2 = Builders<User>.Update
+                    .Pull<string>(el => el.Subs, userName);
+
+            await _context.Users.FindOneAndUpdateAsync(filter2, update2);
+        }
     }
 }

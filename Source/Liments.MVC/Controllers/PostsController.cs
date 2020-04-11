@@ -1,5 +1,6 @@
 ﻿using Liments.MVC.Interfaces;
 using Liments.MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Liments.MVC.Controllers
             _postService = postService;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> IndexAsync()
         {
@@ -22,6 +24,7 @@ namespace Liments.MVC.Controllers
             return View(posts);
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Like(string id)
         {
@@ -31,6 +34,7 @@ namespace Liments.MVC.Controllers
             return PartialView("_Posts", posts);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddComment(string id, string content)
         {
@@ -39,6 +43,7 @@ namespace Liments.MVC.Controllers
             return PartialView("_Posts", posts);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddPost(string title, string content)
         {

@@ -11,6 +11,7 @@ namespace Liments.MVC.Interfaces
         Task<PostViewModel> GetByIdAsync(string postId);
         Task<PostViewModel> GetByAuthorAsync(string str);
         Task<IEnumerable<PostViewModel>> GetAllByProfileAsync(string userName);
+        Task<IEnumerable<PostViewModel>> GetAllFolPostAsync(string userName);
         Task CreateAsync(PostViewModel item);
         Task UpdateAsync(PostViewModel item);
         Task DeleteAsync(string id);

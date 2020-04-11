@@ -1,40 +1,21 @@
 ﻿@using Liments.MVC.Models
-@model IEnumerable<PostViewModel>
+@model ProfileViewModel
 
 @{
     ViewData["Title"] = "Profile";
 }
 
-<div class="container">
-    <div class="card mb-4">
+    <div class="container">
 
-        <div class="card-header">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="ml-2">
-                        <p>Make a publication</p>
-                    </div>
-                </div>
+        <div id="ProfileData">
+            @{ await Html.RenderPartialAsync("_ProfileData", Model.Profile); }
+        </div>
+
+        <div class="mt-5 col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 mx-auto">
+            <div id="Posts">
+                @{ await Html.RenderPartialAsync("_Posts", Model.Posts); }
             </div>
         </div>
-        <div class="card-body">
-            <form asp-action="AddPost" asp-controller="Posts" data-ajax="true" data-ajax-update="#Posts">
-                <div class="form-group">
-                    <input class="form-control" name="title" placeholder="Title">
-                </div>
-                <div class="form-group">
-                    <textarea class="form-control" name="content"></textarea>
-                </div>
-                <input type="submit" class="btn btn-primary btn-sm btn-block" value="Publish" />
-            </form>
-        </div>
     </div>
-
-    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 mx-auto">
-        <div id="Posts">
-            @{ await Html.RenderPartialAsync("_Posts", Model); }
-        </div>
-    </div>
-</div>
 
 

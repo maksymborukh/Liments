@@ -2,6 +2,7 @@
 using Liments.MVC.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -68,10 +69,8 @@ namespace Liments.MVC.Controllers
                             Email = model.Email,
                             UserName = model.UserName,
                             Password = model.Password,
-                            AccSubs = new List<string>(),
-                            AccFol = new List<string>(),
-                            PndSubs = new List<string>(),
-                            PndFol = new List<string>()
+                            Subs = new List<string>(),
+                            Fol = new List<string>()
                         };
                         await _userService.CreateAsync(user);
                     }
@@ -98,6 +97,7 @@ namespace Liments.MVC.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
