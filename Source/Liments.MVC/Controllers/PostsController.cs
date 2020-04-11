@@ -30,8 +30,8 @@ namespace Liments.MVC.Controllers
         {
             //TODO check if possible to make async
             _postService.Like(User.Identity.Name, id);
-            var posts = await _postService.GetAllPublicAsync();
-            return PartialView("_Posts", posts);
+            var posts = await _postService.GetByIdAsync(id);
+            return PartialView("_PostsFooter", posts);
         }
 
         [Authorize]
@@ -39,8 +39,8 @@ namespace Liments.MVC.Controllers
         public async Task<IActionResult> AddComment(string id, string content)
         {
             _postService.AddComment(id, content, User.Identity.Name);
-            var posts = await _postService.GetAllPublicAsync();
-            return PartialView("_Posts", posts);
+            var posts = await _postService.GetByIdAsync(id);
+            return PartialView("_PostsFooter", posts);
         }
 
         [Authorize]
