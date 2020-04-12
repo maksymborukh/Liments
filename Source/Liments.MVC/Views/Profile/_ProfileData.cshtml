@@ -8,7 +8,7 @@
                 <img src="https://picsum.photos/50/50" alt="..." width="130" class="rounded mb-2 img-thumbnail">
                 @if (User.Identity.Name == Model.UserName)
                 {
-                    <a href="#" class="btn btn-dark btn-sm btn-block">Edit profile</a>
+                    <a asp-area="" asp-controller="Profile" asp-action="EditProfile" class="btn btn-dark btn-sm btn-block">Edit profile</a>
                 }
             </div>
             <div class="mt-5 text-white">

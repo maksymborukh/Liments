@@ -1,0 +1,86 @@
+﻿@using Liments.MVC.Models
+@model UserViewModel
+
+@{
+    ViewData["Title"] = "EditProfile";
+}
+
+<form asp-action="UpdateUser" asp-controller="Profile" asp-route-id="@Model.Id">
+    <div class="form-group row">
+        <label for="fname" class="col-4 col-form-label">First name</label>
+        <div class="col-8">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-address-card"></i>
+                    </div>
+                </div>
+                <input id="fname" name="fname" type="text" placeholder="@Model.FirstName" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="lname" class="col-4 col-form-label">Last Name</label>
+        <div class="col-8">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-address-card"></i>
+                    </div>
+                </div>
+                <input id="lname" name="lname" type="text" placeholder="@Model.LastName" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="email" class="col-4 col-form-label">Email</label>
+        <div class="col-8">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-envelope"></i>
+                    </div>
+                </div>
+                <input id="email" name="email" type="text" placeholder="@Model.Email" class="form-control">
+                <span class="field-validation-error text-danger">
+                    @Html.ValidationMessageFor(m => m.Email)
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="username" class="col-4 col-form-label">Username</label>
+        <div class="col-8">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-user"></i>
+                    </div>
+                </div>
+                <input id="username" name="username" type="text" placeholder="@Model.UserName" class="form-control">
+                <span class="field-validation-error text-danger">
+                      @Html.ValidationMessageFor(m => m.UserName)
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="pass" class="col-4 col-form-label">Password</label>
+        <div class="col-8">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-unlock-alt"></i>
+                    </div>
+                </div>
+                <input id="pass" name="pass" type="password" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="offset-4 col-8">
+            <button name="submit" type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</form>
+

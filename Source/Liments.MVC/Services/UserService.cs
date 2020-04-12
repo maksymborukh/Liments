@@ -4,6 +4,7 @@ using Liments.MVC.Core.Entities;
 using Liments.MVC.Interfaces;
 using Liments.MVC.Models;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -32,6 +33,12 @@ namespace Liments.MVC.Services
         public async Task<UserViewModel> GetByEmailAsync(string str)
         {
             var result = _mapper.Map<UserViewModel>(await _context.Users.Find(u => u.Email == str).SingleOrDefaultAsync());
+            return result;
+        }
+
+        public async Task<UserViewModel> GetByIdAsync(string id)
+        {
+            var result = _mapper.Map<UserViewModel>(await _context.Users.Find(u => u.Id == id).SingleOrDefaultAsync());
             return result;
         }
 
@@ -81,10 +88,165 @@ namespace Liments.MVC.Services
             await _context.Users.InsertOneAsync(nUser);
         }
 
-        public async Task UpdateAsync(UserViewModel user)
+        private async Task<IEnumerable<Post>> GetAllLikePostAsync(string userName)
         {
-            var nUser = _mapper.Map<User>(user);
-            await _context.Users.ReplaceOneAsync(u => u.Id == nUser.Id, nUser);
+            var like = new Like();
+            like.UserName = userName;
+            var result = await _context.Posts.Find(p => p.Likes.Contains(like)).ToListAsync();
+
+            return result;
+        }
+
+        private async Task<IEnumerable<Post>> GetAllCommentPostAsync(string userName)
+        {
+            var posts = await _context.Posts.AsQueryable().ToListAsync();
+
+            var result = new List<Post>();
+            foreach (var el in posts)
+            {
+                if (el.Comments.Find(t => t.Author == userName) != null)
+                {
+                    result.Add(el);
+                }
+            }           
+
+            return result;
+        }
+
+        private async Task<IEnumerable<User>> GetAllFolUserAsync(string userName)
+        {
+            var result = await _context.Users.Find(u => u.Fol.Contains(userName)).ToListAsync();
+
+            return result;
+        }
+
+        private async Task<IEnumerable<User>> GetAllSubUserAsync(string userName)
+        {
+            var result = await _context.Users.Find(u => u.Subs.Contains(userName)).ToListAsync();
+
+            return result;
+        }
+
+        public async Task UpdateAsync(string id, string fname, string lname, string email, string username, string pass)
+        {
+            var user = _mapper.Map<User>(await GetByIdAsync(id));
+
+            string originUsername = user.UserName;
+
+            if (fname != null)
+            {
+                user.FirstName = fname;
+            }
+
+            if (lname != null)
+            {
+                user.LastName = lname;
+            }
+
+            if (user.Email != email && email != null)
+            {
+                var uE = await GetByEmailAsync(email);
+                if (uE == null)
+                {
+                    user.Email = email;
+                }
+                else
+                {
+                    throw new Exception("Email exists");
+                }
+            }
+
+            if (user.UserName != username && username != null)
+            {
+                var uN = await GetByUserNameAsync(username);
+                if (uN == null)
+                {
+                    user.UserName = username;
+                }
+                else
+                {
+                    throw new Exception("Username exists");
+                }
+            }
+
+            if (pass != null)
+            {
+                user.Password = GetHashCode(pass);
+            }
+
+            await _context.Users.ReplaceOneAsync(u => u.Id == user.Id, user);
+
+            if (originUsername != username && username != null)
+            {
+                await UpdateFolAsync(originUsername, username);
+                await UpdateSubAsync(originUsername, username);
+                await UpdatePostAuthorAsync(originUsername, username);        
+                await UpdatePostLikeAsync(originUsername, username);
+                await UpdatePostCommentAsync(originUsername, username);
+            }
+        }
+
+        public async Task UpdatePostAuthorAsync(string originUsername, string username)
+        {
+            var posts = await _context.Posts.Find(p => p.Author == originUsername).ToListAsync();
+
+            foreach (var el in posts)
+            {
+                el.Author = username;
+                await _context.Posts.ReplaceOneAsync(p => p.Id == el.Id, el);
+            }
+        }
+
+        public async Task UpdatePostCommentAsync(string originUsername, string username)
+        {
+            var posts = await GetAllCommentPostAsync(originUsername);
+
+            foreach (var el in posts)
+            {
+                var comment = el.Comments.Find(t => t.Author == originUsername);
+                el.Comments.Remove(comment);
+                comment.Author = username;
+                el.Comments.Add(comment);
+                await _context.Posts.ReplaceOneAsync(p => p.Id == el.Id, el);
+            }
+        }
+
+        public async Task UpdatePostLikeAsync(string originUsername, string username)
+        {
+            var posts = await GetAllLikePostAsync(originUsername);
+
+            foreach (var el in posts)
+            {
+                var like = el.Likes.Find(t => t.UserName == originUsername);
+                el.Likes.Remove(like);
+                like.UserName = username;
+                el.Likes.Add(like);
+                await _context.Posts.ReplaceOneAsync(p => p.Id == el.Id, el);
+            }
+        }
+
+        public async Task UpdateFolAsync(string originUsername, string username)
+        {
+            var usersF = await GetAllFolUserAsync(originUsername);
+
+            foreach (var el in usersF)
+            {
+                el.Fol.Remove(originUsername);
+                el.Fol.Add(username);
+                await _context.Users.ReplaceOneAsync(u => u.Id == el.Id, el);
+            }
+        }
+
+        public async Task UpdateSubAsync(string originUsername, string username)
+        {
+            var usersS = await GetAllSubUserAsync(originUsername);
+
+            foreach (var el in usersS)
+            {
+                el.Subs.Remove(originUsername);
+                el.Subs.Add(username);
+                await _context.Users.ReplaceOneAsync(u => u.Id == el.Id, el);
+            }
         }
 
         public async Task DeleteAsync(string id)
