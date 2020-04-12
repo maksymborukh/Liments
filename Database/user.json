@@ -1,0 +1,4 @@
+{"_id":{"$oid":"5e91e9d079c8747868319ec2"},"first_name":"Maksym","last_name":"Borukh","email":"m.borukh@gmail.com","user_name":"m_borukh","subs":["elvis_amble","kalina_dunn"],"fol":["rae_rosa"],"password":"1A1DC91C907325C69271DDF0C944BC72"}
+{"_id":{"$oid":"5e91fd312b0069f938cb6956"},"first_name":"","last_name":"","email":"r.rosa@gmail.com","user_name":"rae_rosa","subs":["elvis_amble","m_borukh"],"fol":[],"password":"1A1DC91C907325C69271DDF0C944BC72"}
+{"_id":{"$oid":"5e924062b9173605101a11b4"},"first_name":"","last_name":"","email":"elvis_gamble@gmail.com","user_name":"elvis_amble","subs":[],"fol":["rae_rosa","m_borukh"],"password":"1A1DC91C907325C69271DDF0C944BC72"}
+{"_id":{"$oid":"5e936035f647a90c8cbed324"},"first_name":"Kaila","last_name":"Dunn","email":"kaila.dunn@gmail.com","user_name":"kalina_dunn","subs":[],"fol":["m_borukh"],"password":"1A1DC91C907325C69271DDF0C944BC72"}

@@ -1,0 +1,2 @@
+Database has two collections (post, user)
+"Liments" - database name
