@@ -28,10 +28,9 @@ namespace Liments.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Like(string id)
         {
-            //TODO check if possible to make async
             _postService.Like(User.Identity.Name, id);
-            var posts = await _postService.GetByIdAsync(id);
-            return PartialView("_PostsFooter", posts);
+            var post = await _postService.GetByIdAsync(id);
+            return PartialView("_PostsFooter", post);
         }
 
         [Authorize]

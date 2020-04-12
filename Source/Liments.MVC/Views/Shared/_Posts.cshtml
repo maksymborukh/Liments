@@ -38,7 +38,7 @@
             <div class="text-muted h7 mt-2">@item.PostedAt</div>
         </div>
         <div class="card-footer">
-            <div id="PostsFooter">
+            <div id="@("PostsFooter" + item.Id)">
                 @{ await Html.RenderPartialAsync("_PostsFooter", item); }
             </div>
         </div>

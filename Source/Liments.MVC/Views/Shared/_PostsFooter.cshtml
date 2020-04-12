@@ -2,7 +2,7 @@
 @model PostViewModel
 
 <div style="font-size: 24px;">
-    <a asp-action="Like" asp-controller="Posts" asp-route-id="@Model.Id" data-ajax="true" data-ajax-update="#PostsFooter" class="card-link">
+    <a asp-action="Like" asp-controller="Posts" asp-route-id="@Model.Id" data-ajax="true" data-ajax-update="@("#PostsFooter" + Model.Id)" class="card-link">
         @if (Model.Likes.Any(l => l.UserName == User.Identity.Name))
         {
             <i class="fas fa-heart"></i>
@@ -92,7 +92,8 @@
             </div>
             <div class="modal-footer d-block">
                 <div class="container-fluid pr-0 pl-0">
-                    <form asp-action="AddComment" asp-controller="Posts" asp-route-id="@Model.Id" data-ajax="true" data-ajax-complete="refreshCommentDialog('@Model.Id')" data-ajax-update="#PostsFooter">
+                    <form asp-action="AddComment" asp-controller="Posts" asp-route-id="@Model.Id" data-ajax="true" 
+                          data-ajax-complete="refreshCommentDialog('@Model.Id')" data-ajax-update="@("#PostsFooter" + Model.Id)">
                         <div class="form-row">
                             <div class="col-2 col-sm-2 col-md-2 col-lg-1">
                                 <img class="rounded-circle img-fluid" src="https://picsum.photos/50/50" alt="">
