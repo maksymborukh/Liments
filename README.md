@@ -13,11 +13,11 @@ Pages:
 - EditProfile: Change user's information
 
 Possible actions:
-Go to person's profile from post, Likes and Comments tab
-Follow and unfollow person from his profile page
-Like and add comments
-View who likes and comments post
-Change information about yourself
-Unfollow people from Following tab (Profile page)
-Remove people who follows you from Followers tab (Profile page)
-Make publications (Profile page)
+- Go to person's profile from post, Likes and Comments tab
+- Follow and unfollow person from his profile page
+- Like and add comments
+- View who likes and comments post
+- Change information about yourself
+- Unfollow people from Following tab (Profile page)
+- Remove people who follows you from Followers tab (Profile page)
+- Make publications (Profile page)
