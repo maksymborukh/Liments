@@ -1,4 +1,5 @@
-﻿using Liments.MVC.Interfaces;
+﻿using Liments.MVC.Core.DBneo4j;
+using Liments.MVC.Interfaces;
 using Liments.MVC.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -13,10 +14,12 @@ namespace Liments.MVC.Controllers
     public class AccountController : Controller
     {
         private IUserService _userService;
+        private LimentsNeoContext _client;
 
         public AccountController(IUserService userService)
         {
             _userService = userService;
+            _client = new LimentsNeoContext();
         }
 
         [HttpGet]
@@ -73,6 +76,7 @@ namespace Liments.MVC.Controllers
                             Fol = new List<string>()
                         };
                         await _userService.CreateAsync(user);
+                        _client.Create(model.UserName);
                     }
 
                     await Authenticate(model.UserName);

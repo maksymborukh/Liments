@@ -12,5 +12,6 @@ namespace Liments.MVC.Models
         public List<string> Subs { get; set; }
         public List<string> Fol { get; set; }
         public string Password { get; set; }
+        public int Path { get; set; }
     }
 }

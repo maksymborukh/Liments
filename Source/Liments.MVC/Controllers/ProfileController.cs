@@ -1,4 +1,5 @@
-﻿using Liments.MVC.Interfaces;
+﻿using Liments.MVC.Core.DBneo4j;
+using Liments.MVC.Interfaces;
 using Liments.MVC.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -17,11 +18,13 @@ namespace Liments.MVC.Controllers
     {
         private IPostService _postService;
         private IUserService _userService;
+        private LimentsNeoContext _client;
 
         public ProfileController(IPostService postService, IUserService userService)
         {
             _postService = postService;
             _userService = userService;
+            _client = new LimentsNeoContext();
         }
 
         [Authorize]
@@ -31,6 +34,7 @@ namespace Liments.MVC.Controllers
             ProfileViewModel profile = new ProfileViewModel();
             profile.Posts = await _postService.GetAllByProfileAsync(user);
             profile.Profile = await _userService.GetByUserNameAsync(user);
+            profile.Profile.Path = _client.ShortPath(User.Identity.Name, user);
             return View(profile);
         }
 
@@ -41,6 +45,8 @@ namespace Liments.MVC.Controllers
             await _userService.FollowAsync(User.Identity.Name, user);
 
             var data = await _userService.GetByUserNameAsync(user);
+            _client.CreateRel(User.Identity.Name, user);
+            data.Path = 1;
             return PartialView("_ProfileData", data);
         }
 
@@ -51,6 +57,9 @@ namespace Liments.MVC.Controllers
             await _userService.UnfollowAsync(User.Identity.Name, user);
 
             var data = await _userService.GetByUserNameAsync(user);
+            _client.Delete(User.Identity.Name, user);
+            data.Path = _client.ShortPath(User.Identity.Name, user);
+
             return PartialView("_ProfileData", data);
         }
 
